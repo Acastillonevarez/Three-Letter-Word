@@ -9,19 +9,31 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var letter = ""
-    @State private var counter = ""
+    @State private var counter = 0
+    @State private var selectedLetters = ["", "", ""]
     let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Text("Three Letter Word")
+                .font(.title)
+                .fontWeight(.bold)
+                .padding()
+            Text("Tap the gray box to change the letter")
+            
+            CustomLetterBox(color: .gray, text: letter)
+            
+                .onTapGesture {
+                    let position = alphabet.index(alphabet.startIndex, offsetBy: counter)
+                    letter = String(alphabet[position])
+                    counter += 1
+                    if counter == alphabet.count {
+                        counter = 0;
+                    }
+                }
+            
         }
-        .padding()
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
